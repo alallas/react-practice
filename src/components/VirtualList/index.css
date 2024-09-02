@@ -1,0 +1,13 @@
+.whole-data-container {
+  position: relative;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.whole-data-inner {
+  position: absolute;
+  left: 0;
+  width: 120px;
+  padding-left: 10px;
+}
