@@ -1,0 +1,7 @@
+.list {
+  display: flex;
+}
+.col {
+  position: relative;
+  padding-left: 10px;
+}

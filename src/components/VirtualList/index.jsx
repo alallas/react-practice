@@ -26,6 +26,7 @@ function VirtualList() {
   const [dataList, setDataList] = useState([])
   const [totalData, setTotalData] = useState([])
   const [atBottom, setAtBottom] = useState(false)
+  const [page, setPage] = useState(1)
 
 
   const addVisibleChild = () => {
@@ -56,6 +57,7 @@ function VirtualList() {
     console.log('totalData.length', totalData.length)
     if (scrollTop >= totalHeightValue - visibleHeight - 200){
       console.log('滚到底部了')
+      // 这里是防止滚动底部触发后，再次滚动还会更新state
       if (!atBottom) {
         setAtBottom(true)
       }
@@ -71,7 +73,7 @@ function VirtualList() {
 
   // 需要挂载就去拿数据，填充totalData
   useEffect(() => {
-    getData(50, 1)
+    getData(50, page)
   }, [])
 
   // 需要挂载就去拿数据，且每次滚动的时候都更新当前视口数据，且数据再次请求有新增的时候也更新
@@ -80,20 +82,23 @@ function VirtualList() {
   }, [scrollTop, totalData])
 
 
-  const getNewData = async () => {
+  const getNewData = async (page) => {
     console.log('执行callback')
-    await getData(100, 2)
+    console.log('page', page)
+    await getData(100, page)
     setAtBottom(false)
   }
 
   // 只是要更新，不需要挂载执行，因此要加判断条件
   useEffect(() =>{
-    if (atBottom) {
-      getNewData()
+    if (atBottom && page < 3) {
+      setPage(pre => pre + 1)
+      const newPage = page + 1
+      getNewData(newPage)
     }
   }, [atBottom])
 
-  
+
   return (
     <div className="whole-data-container" style={{height: `${visibleHeight}px`}} onScroll={(e) => onContainerScroll(e)}>
       <div style={{height: `${totalData.length * singleItemHeight}px`}}/>
