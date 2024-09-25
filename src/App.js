@@ -15,6 +15,7 @@ function App() {
       <VirtualListWaterfall/>
       <StoreTestA />
       <StoreTestB />
+      <div>test use reset</div>
     </div>
   );
 }
