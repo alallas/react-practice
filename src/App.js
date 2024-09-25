@@ -11,12 +11,10 @@ const VirtualListWaterfall = React.lazy(() => import('./components/VirtualList')
 function App() {
   return (
     <div>
-      <VirtualList/>
-      <VirtualListWaterfall/>
+      <VirtualList />
+      <VirtualListWaterfall />
       <StoreTestA />
       <StoreTestB />
-      <div>test use reset</div>
-      <div>test use reset-----second time add something</div>
     </div>
   );
 }
